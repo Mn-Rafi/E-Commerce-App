@@ -1,13 +1,12 @@
 const db = require("../config/connection");
 const collections = require("../config/collections");
 const bcrypt = require("bcrypt");
-var alert = require("alert");
 
 module.exports = {
   doSignUp: (user) => {
     return new Promise(async (resolve, rejection) => {
       user.password = await bcrypt.hash(user.password, 10);
-      await db
+      db
         .get()
         .collection(collections.USER_COLLECTION)
         .insertOne(user)
@@ -22,9 +21,7 @@ module.exports = {
     });
   },
   doLogin: (userData) => {
-    console.log(userData);
     return new Promise(async (resolve, reject) => {
-      let loginStatus = false;
       let response = {};
       let user = await db
         .get()

@@ -1,6 +1,6 @@
 <section>
 
-  <div class="row">
+  <div class="row p-5">
     <a
       href="/admin/add-product"
       class="btn btn-success ml-auto"
@@ -20,7 +20,7 @@
     {{#each products}}
       <tbody>
         <tr>
-          <th scope="row">{{@index}}</th>
+          <th scope="row">{{inc @index}}</th>
           <td><img
               style="width: 50px;height:50px;object-fit: scale-down;"
               src="/product-images/{{this._id}}.jpg"
@@ -29,14 +29,17 @@
           <td>{{this.tile}}</td>
           <td>{{this.category}}</td>
           <td>{{this.Description}}</td>
-          <td><a
-              class="btn btn-danger"
-              href="/admin/delete-product/{{this._id}}"
-            >Delete</a>
+          <td>
             <a
               class="btn btn-primary"
-              href="/admin/edit-product/{{this._id}}"
+              href="/admin/edit-product/?id={{this._id}}"
             >Edit</a>
+            <a
+              class="btn btn-danger"
+              href="/admin/delete-product/?id={{this._id}}"
+              onclick="return confirm('Do you really want to delete {{this.tile}}?')"
+            >Delete</a>
+
           </td>
         </tr>
       </tbody>

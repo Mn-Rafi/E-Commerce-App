@@ -28,7 +28,6 @@ router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
     res.redirect("/");
   } else {
-    console.log(req.session.loginErr);
     res.render("user/login", { loginError: req.session.loginErr });
     req.session.loginErr = false;
   }
