@@ -1,29 +1,32 @@
 <section>
-    <div class="row">
-        <div class="ml-auto mr-auto" style="margin-top: 10px; margin-bottom:10px">
-            <h1 style="color: blue;">Login</h1>
-        </div>
+  <div class="row">
+    <div class="ml-auto mr-auto" style="margin-top: 10px; margin-bottom:10px">
+      <h1 style="color: blue;">Login</h1>
     </div>
+  </div>
   <div class="container">
-    <form>
+    {{#if loginError}}
+    <p class="error">{{loginError}}</p>
+    {{/if}}
+    <form action="/login" method="post">
       <!-- Email input -->
       <div class="form-outline mb-4">
-        <input type="email" id="form2Example1" class="form-control" />
+        <input type="email" name="email_id" id="form2Example1" class="form-control" />
         <label class="form-label" for="form2Example1">Email address</label>
       </div>
 
       <!-- Password input -->
       <div class="form-outline mb-4">
-        <input type="password" id="form2Example2" class="form-control" />
+        <input type="password" name="password" id="form2Example2" class="form-control" />
         <label class="form-label" for="form2Example2">Password</label>
       </div>
 
       <!-- Submit button -->
-      <button type="button" class="btn btn-primary btn-block mb-4">Sign in</button>
+      <button type="submit" class="btn btn-primary btn-block mb-4">Sign in</button>
 
       <!-- Register buttons -->
       <div class="text-center">
-        <p>Not a member? <a href="#!">Register</a></p>
+        <p>Not a member? <a href="/signup">Register</a></p>
       </div>
     </form>
   </div>

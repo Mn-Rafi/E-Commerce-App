@@ -18,12 +18,14 @@
           <li class="nav-item">
             <a class="nav-link active" aria-current="page" href="/">Products</a>
           </li>
+          {{#if user}}
           <li class="nav-item">
             <a class="nav-link" href="#">Cart</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Orders</a>
           </li>
+          {{/if}}
         </ul>
         <div class="dropdown ml-auto">
           <button
@@ -33,13 +35,21 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-          >
-            Account
+          >{{#if user}}
+              {{user.user_name}}
+            {{else}}
+              Account
+            {{/if}}
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <a class="dropdown-item" href="/login">Login</a>
-            {{!-- <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a> --}}
+            {{#if user}}
+              <a class="dropdown-item" href="/logout">Logout</a>
+            {{else}}
+              <a class="dropdown-item" href="/login">Login</a>
+            {{/if}}
+
+            {{! <a class="dropdown-item" href="#">Another action</a>
+            <a class="dropdown-item" href="#">Something else here</a> }}
           </div>
         </div>
       </div>
