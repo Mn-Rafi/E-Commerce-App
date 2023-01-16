@@ -1,37 +1,26 @@
-var express = require('express');
+var express = require("express");
 var router = express.Router();
+const productHelpers = require("../helpers/product-helpers");
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
+router.get("/", function (req, res, next) {
+  productHelpers.getAllProducts().then((products) => {
+    console.log(products);
+    res.render("user/view-products", {
+      title: "E Cart - Products Page",
+      products,
+      isAdmin: false,
+      isProductsEmpty: products.length === 0,
+    });
+  });
+});
 
-  const products = [
-    {
-      name : "IPHONE 11",
-      category : "Mobile",
-      description : "This is a good phone. Please buy",
-      image : "https://cdn1.smartprix.com/rx-i23Hwk3oU-w420-h420/apple-iphone-11.jpg"
-    },
-    {
-      name : "KADALAMUTTAYI",
-      category : "Sweet",
-      description : "Kerala special home made sweet",
-      image : "https://www.gramiyum.in/wp-content/uploads/2019/01/Kadalai-mittai.jpg"
-    },
-    {
-      name : "TATA NANO",
-      category : "Car",
-      description : "A perfect car for a middle class family",
-      image : "https://imgd.aeplcdn.com/664x374/cw/ec/10441/Tata-Nano-Exterior-118090.jpg?wm=0&q=75"
-    },
-    {
-      name : "CHICKEN 65",
-      category : "Food",
-      description : "A chicken curry made up of meet preserved for 65 days",
-      image : "https://www.indianhealthyrecipes.com/wp-content/uploads/2022/03/chicken-65-restaurant-style-500x375.jpg"
-    },
-  ];
+router.get("/login", (req, res) => {
+  res.render("user/login");
+});
 
-  res.render('index', { title: 'E Cart - Products Page' , products, isAdmin : false});
+router.get("/signup", (req, res) => {
+  res.render("user/signup");
 });
 
 module.exports = router;
