@@ -3,7 +3,14 @@ var router = express.Router();
 const productHelpers = require("../helpers/product-helpers");
 const userHelpers = require("../helpers/user-helpers");
 
-/* GET home page. */
+const verifyLogin = (req, res, next) => {
+  if (req.session.loggedIn) {
+    next();
+  } else {
+    res.redirect("/login");
+  }
+};
+
 router.get("/", function (req, res, next) {
   let user = req.session.user;
   productHelpers.getAllProducts().then((products) => {
@@ -21,7 +28,6 @@ router.get("/login", (req, res) => {
   if (req.session.loggedIn) {
     res.redirect("/");
   } else {
-    console.log(req.session.loginErr);
     res.render("user/login", { loginError: req.session.loginErr });
     req.session.loginErr = false;
   }
@@ -55,6 +61,11 @@ router.post("/signup", (req, res) => {
     req.session.user = data;
     res.redirect("/");
   });
+});
+
+router.get("/cart", verifyLogin, (req, res) => {
+  let user = req.session.user;
+  res.render("user/cart", {user});
 });
 
 module.exports = router;

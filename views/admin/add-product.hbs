@@ -1,44 +1,50 @@
 <section>
+  <div class="row">
+    <div class="ml-auto mr-auto">
+      {{#if product}}
+      <h1>Edit Product</h1>
+      {{else}}
+      <h1>Add Product</h1>
+      {{/if}}
+    </div>
+  </div>
   <div class="container mt-4">
     <div class="row">
-      <form action="/admin/add-product" method="post" enctype="multipart/form-data">
+      <form {{#if product}} action="/admin/edit-product/?id={{product._id}}" {{else}} action="/admin/add-product"
+        {{/if}} method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label for="exampleInputEmail1">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Enter title"
-            name="tile"
-          />
+          <input type="text" class="form-control" placeholder="Enter title" {{#if product}} value="{{product.tile}}"
+            {{/if}} name="tile" />
         </div>
         <div class="form-group">
           <label>Category</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Category"
-            name="category"
-          />
+          <input type="text" class="form-control" placeholder="Category" {{#if product}} value="{{product.category}}"
+            {{/if}} name="category" />
         </div>
         <div class="form-group">
           <label>Description</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Description"
-            name="Description"
-          />
+          <input type="text" class="form-control" placeholder="Description" {{#if product}}
+            value="{{product.Description}}" {{/if}} name="Description" />
         </div>
         <div class="form-group">
           <label>Image</label>
-          <input
-            type="file"
-            class="form-control"
-            name="image"
-          />
+          <input type="file" class="form-control" name="image" onchange="viewImage(event)" />
         </div>
+        <img style="height: 200px;width:200px" id="imageView" {{#if product}}src="/product-images/{{product._id}}.jpg"
+          {{/if}} alt="">
+        {{#if product}}
+        <button type="submit" class="btn btn-success">Edit Product</button>
+        {{else}}
         <button type="submit" class="btn btn-success">Add Product</button>
+        {{/if}}
       </form>
     </div>
   </div>
 </section>
+
+<script>
+  function viewImage(event) {
+    document.getElementById('imageView').src = URL.createObjectURL(event.target.files[0]);
+  }
+</script>

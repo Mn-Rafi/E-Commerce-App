@@ -7,6 +7,12 @@ var hbs = require("express-handlebars");
 var fileUpload = require("express-fileupload");
 var db = require("./config/connection");
 var session = require("express-session");
+var Handlebars = require('handlebars');
+
+Handlebars.registerHelper("inc", function(value, options)
+{
+    return parseInt(value) + 1;
+});
 
 var userRouter = require("./routes/user");
 var adminRouter = require("./routes/admin");
